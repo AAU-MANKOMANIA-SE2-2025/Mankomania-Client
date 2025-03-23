@@ -13,3 +13,45 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Default ignored files
+/shelf/
+/workspace.xml
+# Gradle
+.gradle/
+build/
+**/build/
+
+# IntelliJ / Android Studio
+.idea/
+
+*.iws
+*.ipr
+
+
+# VSCode
+.vscode/
+
+
+
+# Log und Temporäre Dateien
+*.log
+*.tmp
+*.lock
+
+# macOS
+
+
+# Windows
+Thumbs.db
+
+# Output / generierte Artefakte
+*.apk
+*.ap_
+*.jar
+*.class
+*.war
+*.ear
+/test-results/
+/outputs/
+
+
