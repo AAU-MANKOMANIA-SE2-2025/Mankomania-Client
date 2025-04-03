@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    // Apply the Kotlin serialization plugin.
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.0"
+
 }
 
 android {
@@ -40,7 +43,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -56,4 +58,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // --- OkHttp Runtime for WebSocketClientManager ---
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    // --- For WebSocket Tests ---
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+    // --- Kotlin Serialization (for JSON and serialization support) ---
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }

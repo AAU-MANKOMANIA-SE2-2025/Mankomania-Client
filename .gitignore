@@ -53,6 +53,6 @@ Thumbs.db
 *.ear
 /test-results/
 /outputs/
-
+build.gradle.kts
 
 .idea/
