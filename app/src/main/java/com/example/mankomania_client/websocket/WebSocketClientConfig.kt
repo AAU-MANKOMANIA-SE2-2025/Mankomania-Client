@@ -11,7 +11,7 @@
  */
 
 class WebSocketClientConfig {
-    // TODO: Adjust the default URL as needed.
+
 
     val serverUrl: String = "ws://10.0.2.2:8080/ws"
     // Reconnect interval in milliseconds.

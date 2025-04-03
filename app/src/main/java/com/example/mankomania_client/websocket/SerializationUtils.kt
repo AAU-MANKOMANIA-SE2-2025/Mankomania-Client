@@ -1,23 +1,16 @@
 package com.example.mankomania_client.websocket
 
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 /**
- * # JsonSerializer
- *
- * A fresh, standalone utility object for JSON serialization and deserialization
- * using kotlinx.serialization.
- *
- * @author
- * @since
- * @description Provides simple, reusable methods to convert objects to JSON strings and back.
+ * Objekt für JSON-Serialisierung und -Deserialisierung mittels kotlinx.serialization.
  */
 object JsonSerializer {
 
-    // Configure a Json instance with custom settings.
-    val json = Json {
+    // Konfiguriertes Json-Objekt mit benutzerdefinierten Einstellungen.
+    val json: Json = Json {
         isLenient = true
         prettyPrint = true
         ignoreUnknownKeys = true
@@ -25,32 +18,20 @@ object JsonSerializer {
     }
 
     /**
-     * Serializes the given object into a JSON string.
+     * Serialisiert ein Objekt in einen JSON-String.
      *
-     * @param T The type of the object to be serialized.
-     * @param obj The object instance to serialize.
-     * @return A JSON string representing the object.
-     *
-     * @author
-     * @since
-     * @description Uses kotlinx.serialization to encode the object.
+     * @param T Der Typ des zu serialisierenden Objekts.
+     * @param obj Das zu serialisierende Objekt.
+     * @return Der JSON-String, der das Objekt repräsentiert.
      */
-    inline fun <reified T> toJson(obj: T): String {
-        return json.encodeToString(obj)
-    }
+    inline fun <reified T> toJson(obj: T): String = json.encodeToString(obj)
 
     /**
-     * Deserializes the provided JSON string into an object of type T.
+     * Deserialisiert einen JSON-String in ein Objekt des Typs T.
      *
-     * @param T The target type.
-     * @param jsonString The JSON string to deserialize.
-     * @return An object of type T.
-     *
-     * @author
-     * @since
-     * @description Uses kotlinx.serialization to decode the JSON string.
+     * @param T Der Zieltyp.
+     * @param jsonString Der JSON-String.
+     * @return Das deserialisierte Objekt.
      */
-    inline fun <reified T> fromJson(jsonString: String): T {
-        return json.decodeFromString(jsonString)
-    }
+    inline fun <reified T> fromJson(jsonString: String): T = json.decodeFromString(jsonString)
 }

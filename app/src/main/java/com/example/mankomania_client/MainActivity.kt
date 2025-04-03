@@ -3,7 +3,7 @@ package com.example.mankomania_client
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+
 import com.example.mankomania_client.websocket.ServerCommunicationClient
 import okhttp3.OkHttpClient
 import okhttp3.Request
