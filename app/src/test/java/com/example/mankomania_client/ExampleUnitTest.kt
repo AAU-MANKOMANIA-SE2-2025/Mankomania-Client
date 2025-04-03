@@ -14,4 +14,9 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+    @Test
+    fun multiplication_isCorrect() {
+        val result = 3 * 3
+        assertEquals(9, result)
+    }
 }
