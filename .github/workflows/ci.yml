@@ -18,6 +18,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Debug - List Files
+        run: ls -R
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -35,4 +38,3 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew test
-
