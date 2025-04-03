@@ -58,6 +58,8 @@ jobs:
             -Dsonar.projectKey=AAU-MANKOMANIA-SE2-2025_Mankomania-Client
             -Dsonar.organization=aau-mankomania-se2-2025
             -Dsonar.automaticAnalysis=false
+            -Dsonar.sources=app/src/main
+            -Dsonar.tests=app/src/test
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
             # Comma-separated paths to directories containing test source files.
