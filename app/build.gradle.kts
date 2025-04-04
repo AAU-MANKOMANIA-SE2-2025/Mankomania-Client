@@ -1,3 +1,7 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.Test
+import org.gradle.testing.jacoco.tasks.JacocoReport
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -44,45 +48,45 @@ android {
 
     testOptions {
         unitTests.all {
-            useJUnitPlatform()
-            finalizedBy("jacocoTestReport")
         }
     }
 }
 
 // JaCoCo Test-Report-Task
-tasks.register("jacocoTestReport", JacocoReport::class) {
+tasks.register<JacocoReport>("jacocoTestReport") {
     dependsOn("testDebugUnitTest")
 
     reports {
         xml.required.set(true)
-        xml.destination.set(file("${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"))
+        xml.outputLocation.set(file("${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"))
     }
 
     val fileFilter = listOf(
         "**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*"
     )
 
-    val debugTree = fileTree(
-        dir = "${project.layout.buildDirectory.get().asFile}/intermediates/javac/debug",
-        excludes = fileFilter
-    )
+    val debugTree = fileTree("${buildDir}/intermediates/javac/debug") {
+        exclude(fileFilter)
+    }
 
-    val mainSrc = "${project.projectDir}/src/main/java"
+    val mainSrc = "$projectDir/src/main/java"
 
     sourceDirectories.setFrom(files(mainSrc))
     classDirectories.setFrom(files(debugTree))
-    executionData.setFrom(files("${project.layout.buildDirectory.get().asFile}/jacoco/testDebugUnitTest.exec"))
+    executionData.setFrom(fileTree(buildDir).include("jacoco/testDebugUnitTest.exec"))
 }
 
 // SonarQube-Properties
-sonar {
+sonarqube {
     properties {
         property("sonar.projectKey", "AAU-MANKOMANIA-SE2-2025_Mankomania-Client")
         property("sonar.organization", "aau-mankomania-se2-2025")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.java.coveragePlugin", "jacoco")
-        property("sonar.coverage.jacoco.xmlReportPaths", "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
+        property(
+            "sonar.coverage.jacoco.xmlReportPaths",
+            "${project.projectDir}/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+        )
     }
 }
 
@@ -95,11 +99,21 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+// JUnit 5 aktivieren
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }
